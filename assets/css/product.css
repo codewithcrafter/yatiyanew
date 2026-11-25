@@ -1,0 +1,611 @@
+/**
+ * =====================================================================
+ * YATIYA COUTURE - Product Details Dossier Stylesheet
+ * Brand Vision: "ELEVATE YOUR EVERYDAY STYLE"
+ * =====================================================================
+ */
+
+.product-page-wrapper {
+    background-color: var(--bg-primary);
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-3xl);
+    min-height: 85vh;
+}
+
+/* 1. DOSSIER 2-COLUMN GRID (GALLERY + COMMERCE) */
+.product-dossier-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+    margin-top: var(--space-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-soft);
+}
+
+/* 2. LEFT: GALLERY & ZOOM */
+.gallery-wrapper {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: var(--space-md);
+    position: sticky;
+    top: calc(var(--header-height) + 20px);
+}
+
+.gallery-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.gallery-thumb-btn {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--bg-primary);
+    transition: all var(--transition-fast);
+    padding: 0;
+}
+
+.gallery-thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumb-btn:hover,
+.gallery-thumb-btn.active {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 2px var(--gold-primary);
+}
+
+.gallery-main-stage {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--bg-accent);
+}
+
+.zoom-image-container {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.product-stage-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity var(--transition-fast);
+}
+
+/* Zoom Lens */
+.zoom-lens {
+    position: absolute;
+    border: 1px solid var(--gold-primary);
+    width: 140px;
+    height: 140px;
+    background: rgba(198, 161, 91, 0.2);
+    display: none;
+    pointer-events: none;
+    border-radius: var(--radius-sm);
+}
+
+/* Zoom Result Preview Window */
+.zoom-result-window {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 480px;
+    height: 480px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-dropdown);
+    z-index: 100;
+    display: none;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+}
+
+.zoom-instruction-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(26, 24, 22, 0.75);
+    color: var(--gold-champagne);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+}
+
+/* 3. RIGHT: COMMERCE SPECIFICATIONS */
+.product-commerce-pane {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-header-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.product-brand-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+}
+
+.product-sku-badge {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.product-title-main {
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    line-height: 1.25;
+    margin-bottom: var(--space-md);
+}
+
+/* Price Section */
+.product-price-section {
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.price-numbers-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.price-current {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.price-original {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+.price-discount-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #B42318;
+    background-color: var(--color-error-bg);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.price-inclusive-tax {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.product-short-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+}
+
+/* 4. VARIANT OPTIONS (Color & Size) */
+.option-block {
+    margin-bottom: var(--space-md);
+}
+
+.option-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.option-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.selected-option-value {
+    font-size: 0.8125rem;
+    color: var(--gold-primary);
+    font-weight: 600;
+}
+
+/* Color Swatches */
+.color-swatch-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.color-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    background: transparent;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.swatch-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.color-pill-btn:hover,
+.color-pill-btn.selected {
+    border-color: var(--text-primary);
+    background-color: var(--bg-primary);
+    font-weight: 600;
+}
+
+/* Size Pills */
+.size-pill-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.size-choice-btn {
+    padding: 10px 18px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.size-choice-btn:hover,
+.size-choice-btn.selected {
+    background-color: var(--text-primary);
+    border-color: var(--text-primary);
+    color: #FFFFFF;
+}
+
+.size-choice-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
+    border-color: var(--border-subtle);
+    background: var(--bg-soft);
+    color: var(--text-muted);
+}
+
+/* Stock Status Pill */
+.stock-status-wrapper {
+    margin: var(--space-md) 0;
+}
+
+.stock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+.stock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+}
+
+.stock-available {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.stock-available .stock-dot {
+    background-color: var(--color-success);
+}
+
+.stock-out {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.stock-out .stock-dot {
+    background-color: var(--color-error);
+}
+
+/* Quantity and Action Buttons */
+.quantity-actions-group {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.quantity-control-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: var(--space-md);
+}
+
+.qty-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.qty-stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.qty-btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+}
+
+.qty-btn:hover {
+    background-color: var(--bg-accent);
+}
+
+.qty-input {
+    width: 50px;
+    height: 38px;
+    text-align: center;
+    font-weight: 600;
+    border: none;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    font-size: 0.9rem;
+}
+
+.qty-input:focus {
+    outline: none;
+}
+
+.commerce-buttons-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-page-wishlist-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.product-page-wishlist-btn.active {
+    border-color: #B42318;
+    color: #B42318;
+}
+
+.product-page-wishlist-btn.active svg {
+    fill: #B42318;
+}
+
+/* Patron Reassurance */
+.product-patron-reassurance {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.reassurance-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.reassurance-icon {
+    font-size: 1.25rem;
+    color: var(--gold-primary);
+    line-height: 1;
+}
+
+.reassurance-item strong {
+    display: block;
+    font-size: 0.8125rem;
+    margin-bottom: 2px;
+}
+
+.reassurance-item span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* 5. DOSSIER TABS SECTION */
+.dossier-tab-headers {
+    display: flex;
+    gap: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.dossier-tab-btn {
+    padding: 12px 18px;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+
+.dossier-tab-btn:hover,
+.dossier-tab-btn.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--gold-primary);
+    font-weight: 600;
+}
+
+.dossier-tab-contents {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-top: none;
+    padding: var(--space-xl);
+    border-bottom-left-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeIn 0.25s ease-out;
+}
+
+.tab-editorial-content {
+    max-width: 860px;
+}
+
+.tab-editorial-content h3 {
+    margin-bottom: var(--space-sm);
+}
+
+.tab-editorial-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+}
+
+.care-list {
+    list-style: disc;
+    padding-left: 20px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Specifications Table */
+.specs-table-wrap {
+    max-width: 860px;
+}
+
+.specs-table-wrap h3 {
+    margin-bottom: var(--space-md);
+}
+
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.specs-table th,
+.specs-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    text-align: left;
+}
+
+.specs-table th {
+    width: 30%;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+}
+
+.specs-table td {
+    color: var(--text-secondary);
+}
+
+/* 6. RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) {
+    .product-dossier-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-lg);
+        gap: var(--space-xl);
+    }
+
+    .gallery-wrapper {
+        position: static;
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-thumbnails {
+        flex-direction: row;
+        max-height: none;
+        order: 2;
+        overflow-x: auto;
+    }
+
+    .gallery-thumb-btn {
+        width: 70px;
+        flex-shrink: 0;
+    }
+
+    .gallery-main-stage {
+        order: 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .product-dossier-grid {
+        padding: var(--space-md);
+    }
+
+    .commerce-buttons-wrap button {
+        padding: 14px 18px;
+    }
+
+    .dossier-tab-contents {
+        padding: var(--space-md);
+    }
+}
+

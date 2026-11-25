@@ -1,0 +1,756 @@
+/**
+ * YATIYA COUTURE - Luxury Checkout & Order Confirmation Stylesheet
+ * Brand Palette: Warm Ivory (#F7F4ED), White (#FFFFFF), Espresso (#24211E),
+ *                Gold (#C6A15B), Champagne Gold (#D6BC7A), Muted Text (#777168)
+ * Pure Core CSS adhering to Haute Couture Atelier Aesthetics
+ */
+
+/* =====================================================================
+   1. CHECKOUT WRAPPER & CONTAINER
+   ===================================================================== */
+.checkout-wrapper {
+    background-color: #F7F4ED;
+    min-height: calc(100vh - 160px);
+    padding: 36px 0 80px;
+}
+
+.checkout-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* =====================================================================
+   2. HORIZONTAL 5-STEP PROGRESS INDICATOR
+   ===================================================================== */
+.checkout-stepper-wrap {
+    max-width: 860px;
+    margin: 0 auto 36px;
+    padding: 0 12px;
+}
+
+.checkout-stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+/* Background Connecting Line */
+.checkout-stepper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: #E5E0D5;
+    z-index: 1;
+}
+
+/* Active Gold Connecting Line Fill (steps 1 & 2 completed, step 3 active) */
+.stepper-progress-fill {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, #C6A15B, #D6BC7A);
+    z-index: 2;
+    transition: width 0.4s ease;
+}
+
+.step-item {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    text-align: center;
+    min-width: 72px;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #D6BC7A;
+    color: #777168;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(36, 33, 30, 0.04);
+}
+
+.step-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #777168;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+/* Completed Step Styling */
+.step-item.completed .step-circle {
+    background: #C6A15B;
+    border-color: #C6A15B;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(198, 161, 91, 0.3);
+}
+
+.step-item.completed .step-label {
+    color: #C6A15B;
+}
+
+/* Active Step Styling */
+.step-item.active .step-circle {
+    background: #24211E;
+    border-color: #C6A15B;
+    color: #FFFFFF;
+    box-shadow: 0 0 0 5px rgba(198, 161, 91, 0.22);
+}
+
+.step-item.active .step-label {
+    color: #24211E;
+    font-weight: 700;
+}
+
+/* =====================================================================
+   3. TWO-COLUMN CHECKOUT GRID
+   ===================================================================== */
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 36px;
+    align-items: start;
+}
+
+@media (max-width: 991px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+.checkout-main {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Card Container */
+.checkout-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(198, 161, 91, 0.25);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 4px 24px rgba(36, 33, 30, 0.03);
+    position: relative;
+}
+
+.checkout-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ECE7DE;
+    padding-bottom: 16px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.checkout-card-title {
+    font-family: var(--font-heading, "Playfair Display", Georgia, serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: #24211E;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.checkout-card-title span.badge-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #F7F4ED;
+    border: 1px solid #C6A15B;
+    font-size: 12px;
+    font-weight: 700;
+    color: #C6A15B;
+}
+
+.checkout-card-title span.badge-num.completed {
+    background: #C6A15B;
+    color: #FFFFFF;
+}
+
+/* =====================================================================
+   4. PATRON AUTHENTICATED IDENTITY BAR (STEP 2)
+   ===================================================================== */
+.patron-verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.patron-identity-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #FBF9F5;
+    border: 1px solid #E5E0D5;
+    border-radius: 4px;
+    padding: 16px 20px;
+}
+
+.patron-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #24211E;
+    color: #D6BC7A;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid #C6A15B;
+}
+
+.patron-details {
+    flex: 1;
+}
+
+.patron-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #24211E;
+    margin-bottom: 2px;
+}
+
+.patron-meta {
+    font-size: 12px;
+    color: #777168;
+    line-height: 1.4;
+}
+
+.patron-switch-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: #C6A15B;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #D6BC7A;
+    border-radius: 3px;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.patron-switch-link:hover {
+    background: #24211E;
+    color: #FFFFFF;
+    border-color: #24211E;
+}
+
+/* =====================================================================
+   5. DELIVERY ADDRESS SELECTION & FORM (STEP 3)
+   ===================================================================== */
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.address-card-choice {
+    border: 1.5px solid #E5E0D5;
+    border-radius: 4px;
+    padding: 18px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    background: #FCFBF9;
+}
+
+.address-card-choice:hover {
+    border-color: #C6A15B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(198, 161, 91, 0.1);
+}
+
+.address-card-choice.selected {
+    border-color: #C6A15B;
+    background: #FFFDF9;
+    box-shadow: 0 3px 16px rgba(198, 161, 91, 0.16);
+}
+
+.address-card-choice input[type="radio"] {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    accent-color: #C6A15B;
+    width: 18px;
+    height: 18px;
+}
+
+.address-type-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: #EAE5D9;
+    color: #24211E;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.address-recipient-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #24211E;
+    margin-bottom: 4px;
+}
+
+.address-details-body {
+    font-size: 12px;
+    color: #777168;
+    line-height: 1.5;
+}
+
+.address-phone-line {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #24211E;
+    font-weight: 500;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #24211E;
+    margin-bottom: 6px;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #B71C1C;
+    font-weight: 700;
+}
+
+.form-control {
+    width: 100%;
+    height: 46px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #24211E;
+    background: #FFFFFF;
+    border: 1px solid #D6BC7A;
+    border-radius: 3px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+textarea.form-control {
+    height: auto;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #C6A15B;
+    box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.18);
+}
+
+.form-control::placeholder {
+    color: #A59F94;
+    font-size: 13px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+.pin-status-text {
+    font-size: 11px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+/* Toggle Form Link */
+.address-toggle-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #C6A15B;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.address-toggle-link:hover {
+    color: #24211E;
+    text-decoration: underline;
+}
+
+/* =====================================================================
+   6. PAYMENT SETTLEMENT METHOD CARDS (STEP 4)
+   ===================================================================== */
+.payment-methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.payment-method-card {
+    border: 1.5px solid #E5E0D5;
+    border-radius: 4px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #FCFBF9;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+}
+
+.payment-method-card:hover:not(.disabled) {
+    border-color: #C6A15B;
+    background: #FFFDF9;
+}
+
+.payment-method-card.selected {
+    border-color: #C6A15B;
+    background: #FFFDF9;
+    box-shadow: 0 3px 16px rgba(198, 161, 91, 0.14);
+}
+
+.payment-method-card.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #F2EFE9;
+}
+
+.payment-radio {
+    margin-top: 4px;
+    accent-color: #C6A15B;
+    width: 18px;
+    height: 18px;
+}
+
+.payment-details {
+    flex: 1;
+}
+
+.payment-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #24211E;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.payment-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #EAE5D9;
+    color: #4A453E;
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-weight: 700;
+}
+
+.payment-badge.instant {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.payment-desc {
+    font-size: 13px;
+    color: #777168;
+    line-height: 1.5;
+}
+
+/* =====================================================================
+   7. STICKY ORDER SUMMARY SIDEBAR
+   ===================================================================== */
+.checkout-sidebar {
+    position: sticky;
+    top: 90px;
+}
+
+.summary-card {
+    padding: 28px;
+}
+
+.summary-heading {
+    font-family: var(--font-heading, "Playfair Display", Georgia, serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: #24211E;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #ECE7DE;
+    padding-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-items-list {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #ECE7DE;
+}
+
+.summary-item-img {
+    width: 60px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 2px;
+    background: #ECE7DE;
+    border: 1px solid #E5E0D5;
+}
+
+.summary-item-details {
+    flex: 1;
+    font-size: 13px;
+}
+
+.summary-item-name {
+    font-weight: 600;
+    color: #24211E;
+    margin-bottom: 4px;
+    line-height: 1.35;
+    font-size: 13px;
+}
+
+.summary-item-variant {
+    font-size: 11px;
+    color: #777168;
+    margin-bottom: 4px;
+}
+
+.summary-item-price {
+    font-weight: 700;
+    color: #24211E;
+    font-size: 13px;
+}
+
+.financial-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #4A453E;
+}
+
+.financial-row.discount-row {
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+.financial-row.total-row {
+    font-size: 18px;
+    font-weight: 700;
+    color: #24211E;
+    padding-top: 16px;
+    margin-top: 14px;
+    border-top: 2px solid #24211E;
+}
+
+.tax-inclusive-notice {
+    font-size: 11px;
+    color: #777168;
+    text-align: right;
+    margin-top: -4px;
+    margin-bottom: 22px;
+}
+
+/* Primary CTA Button */
+.btn-place-order {
+    width: 100%;
+    height: 52px;
+    padding: 0 24px;
+    background: #24211E;
+    color: #FFFFFF;
+    font-family: var(--font-heading, "Playfair Display", Georgia, serif);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid #24211E;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 16px rgba(36, 33, 30, 0.12);
+}
+
+.btn-place-order:hover:not(:disabled) {
+    background: #C6A15B;
+    border-color: #C6A15B;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(198, 161, 91, 0.3);
+}
+
+.btn-place-order:disabled {
+    background: #A59F94;
+    border-color: #A59F94;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Trust Badges */
+.trust-badges-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 22px;
+    border-top: 1px solid #ECE7DE;
+    font-size: 11px;
+    color: #777168;
+    text-align: center;
+    gap: 12px;
+}
+
+.trust-badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.trust-badge-icon {
+    font-size: 16px;
+    color: #C6A15B;
+}
+
+/* =====================================================================
+   8. RESPONSIVE MOBILE ADAPTATIONS
+   ===================================================================== */
+@media (max-width: 768px) {
+    .checkout-wrapper {
+        padding: 20px 0 60px;
+    }
+
+    .checkout-container {
+        padding: 0 16px;
+    }
+
+    .checkout-card {
+        padding: 20px 16px;
+    }
+
+    .checkout-stepper-wrap {
+        margin-bottom: 24px;
+        padding: 0 4px;
+    }
+
+    .checkout-stepper::before {
+        left: 20px;
+        right: 20px;
+        top: 16px;
+    }
+
+    .stepper-progress-fill {
+        left: 20px;
+        top: 16px;
+    }
+
+    .step-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+
+    .step-label {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+    }
+
+    .step-item {
+        min-width: 52px;
+        gap: 6px;
+    }
+
+    .address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .patron-identity-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .patron-switch-link {
+        align-self: flex-start;
+    }
+
+    .checkout-sidebar {
+        position: static;
+        top: auto;
+    }
+}

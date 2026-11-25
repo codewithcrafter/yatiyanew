@@ -1,0 +1,388 @@
+/**
+ * YATIYA COUTURE - Private Wishlist Stylesheet
+ * Luxury editorial grid layout strictly without CSS frameworks
+ */
+
+.wishlist-main-wrapper {
+    background-color: var(--bg-primary, #F7F4ED);
+    padding: 2.5rem 0 5rem;
+    min-height: 70vh;
+}
+
+/* Breadcrumbs */
+.wishlist-breadcrumb {
+    margin-bottom: 2rem;
+}
+
+.wishlist-breadcrumb ol {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.wishlist-breadcrumb li a {
+    color: var(--text-secondary, #777168);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.wishlist-breadcrumb li a:hover {
+    color: var(--accent-gold, #C6A15B);
+}
+
+.wishlist-breadcrumb .separator {
+    margin: 0 0.75rem;
+    color: var(--border-subtle, #E8E2D5);
+}
+
+.wishlist-breadcrumb li[aria-current="page"] {
+    color: var(--text-primary, #24211E);
+    font-weight: 500;
+}
+
+/* Header Row */
+.wishlist-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border-subtle, #E8E2D5);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.wishlist-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-gold, #C6A15B);
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+}
+
+.wishlist-title {
+    font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: var(--text-primary, #24211E);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.wishlist-counter {
+    font-size: 1.125rem;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    color: var(--text-secondary, #777168);
+    font-weight: 300;
+    margin-left: 0.5rem;
+}
+
+/* Wishlist Product Grid */
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* Wishlist Card */
+.wishlist-card {
+    background: var(--bg-secondary, #FFFFFF);
+    border: 1px solid var(--border-subtle, #E8E2D5);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.wishlist-card-media {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: #F0ECE4;
+    overflow: hidden;
+}
+
+.wishlist-img-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.wishlist-primary-img,
+.wishlist-hover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease, transform 0.6s ease;
+}
+
+.wishlist-hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.wishlist-card:hover .wishlist-hover-img {
+    opacity: 1;
+}
+
+.wishlist-card:hover .wishlist-primary-img {
+    transform: scale(1.04);
+}
+
+/* Floating Remove Button */
+.wishlist-remove-form {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    margin: 0;
+}
+
+.wishlist-card-remove-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-subtle, #E8E2D5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary, #777168);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.wishlist-card-remove-btn:hover {
+    background: #DC2626;
+    color: #FFFFFF;
+    border-color: #DC2626;
+    transform: scale(1.1);
+}
+
+/* Stock Badge */
+.wishlist-stock-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    z-index: 5;
+}
+
+/* Wishlist Card Body */
+.wishlist-card-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.wishlist-brand-tag {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-gold, #C6A15B);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.wishlist-product-title {
+    font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+}
+
+.wishlist-product-title a {
+    color: var(--text-primary, #24211E);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.wishlist-product-title a:hover {
+    color: var(--accent-gold, #C6A15B);
+}
+
+/* Price Wrap */
+.wishlist-price-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+}
+
+.wishlist-selling-price {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary, #24211E);
+}
+
+.wishlist-original-price {
+    font-size: 0.8125rem;
+    text-decoration: line-through;
+    color: #9C9589;
+}
+
+.wishlist-discount-badge {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #047857;
+    background: #ECFDF5;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+}
+
+/* Card Actions: Move to Bag */
+.wishlist-card-actions {
+    margin-top: auto;
+}
+
+.wishlist-move-form {
+    margin: 0;
+}
+
+.move-to-bag-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Empty Wishlist State */
+.empty-wishlist-section {
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.empty-wishlist-inner {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.empty-wishlist-icon-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #EFE9DC;
+    color: var(--accent-gold, #C6A15B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.empty-wishlist-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-gold, #C6A15B);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.empty-wishlist-heading {
+    font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text-primary, #24211E);
+    margin: 0 0 1rem;
+}
+
+.empty-wishlist-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary, #777168);
+    line-height: 1.6;
+    margin: 0 0 2rem;
+}
+
+.empty-wishlist-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.empty-wishlist-curations {
+    border-top: 1px solid var(--border-subtle, #E8E2D5);
+    padding-top: 2rem;
+}
+
+.curation-label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary, #777168);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.curation-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.curation-tags a {
+    font-size: 0.8125rem;
+    padding: 0.4rem 0.875rem;
+    background: var(--bg-secondary, #FFFFFF);
+    border: 1px solid var(--border-subtle, #E8E2D5);
+    color: var(--text-primary, #24211E);
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.curation-tags a:hover {
+    border-color: var(--accent-gold, #C6A15B);
+    color: var(--accent-gold, #C6A15B);
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+    .wishlist-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 860px) {
+    .wishlist-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    .wishlist-card-media {
+        height: 300px;
+    }
+}
+
+@media (max-width: 540px) {
+    .wishlist-grid {
+        grid-template-columns: 1fr;
+    }
+    .wishlist-card-media {
+        height: 380px;
+    }
+    .wishlist-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
