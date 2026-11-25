@@ -22,30 +22,72 @@ class Database {
      */
     public static function getConnection(): PDO {
         if (self::$instance === null) {
-            $dsn = sprintf(
-                'mysql:host=%s;port=%s;dbname=%s;charset=%s',
-                DB_HOST,
-                DB_PORT,
-                DB_NAME,
-                DB_CHARSET
-            );
-
             $options = [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . DB_CHARSET . " COLLATE utf8mb4_unicode_ci"
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . DB_CHARSET . " COLLATE utf8mb4_unicode_ci",
+                PDO::ATTR_TIMEOUT            => 5
             ];
 
-            try {
-                self::$instance = new PDO($dsn, DB_USER, DB_PASS, $options);
-            } catch (PDOException $e) {
-                // Log detailed error securely
-                error_log('[Yatiya DB Error] ' . $e->getMessage());
+            // Host failover list: ensures zero-downtime whether Hostinger connects via remote host or internal localhost
+            $candidates = [
+                // 1. Primary Hostinger Host
+                [
+                    'host'   => DB_HOST,
+                    'port'   => DB_PORT,
+                    'dbname' => DB_NAME,
+                    'user'   => DB_USER,
+                    'pass'   => DB_PASS
+                ]
+            ];
 
-                // If running in CLI / debug, show readable error; else show generic maintenance message
+            // 2. Localhost fallback for Hostinger internal socket/proxy
+            if (DB_HOST !== 'localhost' && DB_HOST !== '127.0.0.1') {
+                $candidates[] = [
+                    'host'   => 'localhost',
+                    'port'   => DB_PORT,
+                    'dbname' => DB_NAME,
+                    'user'   => DB_USER,
+                    'pass'   => DB_PASS
+                ];
+            }
+
+            // 3. Local development fallback (only if running locally and remote IP is not whitelisted in Hostinger)
+            $isLocalEnv = (php_sapi_name() === 'cli')
+                || (isset($_SERVER['HTTP_HOST']) && (str_contains($_SERVER['HTTP_HOST'], 'localhost') || str_contains($_SERVER['HTTP_HOST'], '127.0.0.1')));
+            if ($isLocalEnv) {
+                $candidates[] = [
+                    'host'   => '127.0.0.1',
+                    'port'   => '3306',
+                    'dbname' => 'yatiya_couture',
+                    'user'   => 'root',
+                    'pass'   => ''
+                ];
+            }
+
+            $lastException = null;
+            foreach ($candidates as $config) {
+                try {
+                    $dsn = sprintf(
+                        'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+                        $config['host'],
+                        $config['port'],
+                        $config['dbname'],
+                        DB_CHARSET
+                    );
+                    self::$instance = new PDO($dsn, $config['user'], $config['pass'], $options);
+                    break;
+                } catch (PDOException $e) {
+                    $lastException = $e;
+                }
+            }
+
+            if (self::$instance === null) {
+                error_log('[Yatiya DB Error] ' . ($lastException ? $lastException->getMessage() : 'Database connection failed'));
+
                 if (php_sapi_name() === 'cli' || (defined('DEBUG_MODE') && DEBUG_MODE)) {
-                    die('Database Connection Error: ' . $e->getMessage());
+                    die('Database Connection Error: ' . ($lastException ? $lastException->getMessage() : 'Could not connect to database.'));
                 } else {
                     http_response_code(500);
                     die('The Yatiya Couture luxury portal is temporarily undergoing concierge maintenance. Please try again in a few moments.');

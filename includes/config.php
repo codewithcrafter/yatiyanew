@@ -10,9 +10,16 @@ defined('YATIYA_APP') or define('YATIYA_APP', true);
 // Set default timezone
 date_default_timezone_set('Asia/Kolkata');
 
-// Error reporting settings (switch display_errors to 0 in strict production)
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
+// Error reporting settings (display errors in local dev, hide in production)
+$isLocalEnv = (php_sapi_name() === 'cli')
+    || (isset($_SERVER['HTTP_HOST']) && (str_contains($_SERVER['HTTP_HOST'], 'localhost') || str_contains($_SERVER['HTTP_HOST'], '127.0.0.1')));
+if ($isLocalEnv) {
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+} else {
+    ini_set('display_errors', '0');
+    ini_set('display_startup_errors', '0');
+}
 error_reporting(E_ALL);
 
 // Session Security Configuration
@@ -27,12 +34,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Database Credentials
-define('DB_HOST', '127.0.0.1');
+// Database Credentials (Hostinger Live Database)
+define('DB_HOST', 'srv1328.hstgr.io');
 define('DB_PORT', '3306');
-define('DB_NAME', 'yatiya_couture');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_NAME', 'u555726154_yatiya');
+define('DB_USER', 'u555726154_yatiyac');
+define('DB_PASS', 'Yatiya@2026#');
 define('DB_CHARSET', 'utf8mb4');
 
 // Brand & Store Constants
@@ -59,8 +66,11 @@ define('PATH_ROOT', dirname(__DIR__));
 define('PATH_INCLUDES', PATH_ROOT . DIRECTORY_SEPARATOR . 'includes');
 define('PATH_UPLOADS', PATH_ROOT . DIRECTORY_SEPARATOR . 'uploads');
 
-// Dynamic Base URL calculation
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+// Dynamic Base URL calculation (Supports HTTP, HTTPS, Reverse Proxies & Cloudflare)
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+    || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
+$protocol = $isHttps ? 'https://' : 'http://';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
 $rawDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
 $scriptDir = trim(str_replace('\\', '/', $rawDir), '/.');
